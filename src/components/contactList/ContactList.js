@@ -13,7 +13,11 @@ const ContactList = ({ contacts, filter, getInitialContacts }) => {
       console.log(contacts);
       getInitialContacts(JSON.parse(contacts));
     }
+    // eslint-disable-next-line
   }, []);
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
   return (
     <ContactListWrapper>
       <TransitionGroup component="ul" className="list">
