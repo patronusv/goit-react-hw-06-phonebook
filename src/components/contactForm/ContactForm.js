@@ -34,6 +34,7 @@ const ContactForm = ({ addNewContact, contacts }) => {
       return;
     }
     addNewContact(user);
+    localStorage.setItem('contacts', JSON.stringify([...contacts, { ...user }]));
     setState({ ...initialState });
   };
   const showAlertMessage = message => {

@@ -5,26 +5,29 @@ import { CSSTransition } from 'react-transition-group';
 import ContactForm from './contactForm/ContactForm';
 import ContactList from './contactList/ContactList';
 import Filter from './filter/Filter';
+import { connect } from 'react-redux';
+import phonebookReducer from '../redux/reducers/phonebookReducer';
 // import Alert from './alert/Alert';
-const initialState = {
-  contacts: [],
-  filter: '',
-};
-const App = () => {
-  const [state, setState] = useState({ ...initialState });
+// const initialState = {
+//   contacts: [],
+//   filter: '',
+// };
+const App = ({ contacts }) => {
+  // const [state, setState] = useState({ ...initialState });
   // const [alertMessage, setAlertMessage] = useState('');
   // const [showAlert, setShowAlert] = useState(false);
-  useEffect(() => {
-    const contacts = localStorage.getItem('contacts');
-    if (contacts) {
-      setState({ contacts: JSON.parse(contacts) });
-    }
-  }, []);
+  // useEffect(() => {
+  //   const contacts = localStorage.getItem('contacts');
+  //   if (contacts) {
+  //     console.log(contacts);
+  //     setState({ contacts: JSON.parse(contacts) });
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(state.contacts));
-    setState(prevState => ({ ...prevState, filter: state.filter }));
-  }, [state.filter, state.contacts]);
+  // useEffect(() => {
+  //   localStorage.setItem('contacts', JSON.stringify(state.contacts));
+  //   setState(prevState => ({ ...prevState, filter: state.filter }));
+  // }, [state.filter, state.contacts]);
   // const showAlertMessage = message => {
   //   setAlertMessage(message);
   //   setShowAlert(true);
@@ -62,7 +65,7 @@ const App = () => {
   //     setState(prevState => ({ ...prevState, filter: '' }));
   //   }
   // };
-  const { contacts, filter } = state;
+  // const { contacts, filter } = state;
   return (
     <AppWrapper>
       {/* <CSSTransition in={showAlert} timeout={250} classNames="my-alert" unmountOnExit>
@@ -75,13 +78,18 @@ const App = () => {
       <ContactForm />
 
       <h2 className="contacts-title">Contacts</h2>
-      <CSSTransition in={state.contacts.length > 1} timeout={250} classNames="my-filter" unmountOnExit>
-        <Filter filter={filter} />
+      <CSSTransition in={contacts.length > 1} timeout={250} classNames="my-filter" unmountOnExit>
+        <Filter />
       </CSSTransition>
 
-      <ContactList contacts={contacts} filter={filter} />
+      <ContactList />
     </AppWrapper>
   );
 };
+const mapStateToProps = state => {
+  return {
+    contacts: state.phonebook.contacts,
+  };
+};
 
-export default App;
+export default connect(mapStateToProps)(App);

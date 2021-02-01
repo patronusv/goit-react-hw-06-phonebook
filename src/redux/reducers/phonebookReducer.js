@@ -1,4 +1,4 @@
-import { ADD_CONTACT, DELETE_CONTACT, SET_FILTER } from '../constants/phonebookConstants';
+import { ADD_CONTACT, DELETE_CONTACT, SET_FILTER, GET_INITIAL_CONTACTS } from '../constants/phonebookConstants';
 
 const initialState = {
   contacts: [],
@@ -21,6 +21,11 @@ const phonebookReducer = (state = { ...initialState }, action) => {
       return {
         ...state,
         filter: action.payload,
+      };
+    case GET_INITIAL_CONTACTS:
+      return {
+        ...state,
+        contacts: [...action.payload],
       };
     default:
       return state;
