@@ -47,5 +47,5 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(ContactListItem);
 ContactListItem.propTypes = {
   item: PropTypes.object.isRequired,
-  onBtnClick: PropTypes.func.isRequired,
+  deleteContact: PropTypes.func.isRequired,
 };

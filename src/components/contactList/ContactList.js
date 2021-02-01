@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import ContactListItem from './contactListItem/ContactListItem';
 import ContactListWrapper from './ContactListStyled';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { deleteContact, setFilter } from '../../redux/actions/phonebookActions';
+import { deleteContact } from '../../redux/actions/phonebookActions';
 
-const ContactList = ({ contacts, filter, onBtnClick }) => {
+const ContactList = ({ contacts, filter }) => {
   return (
     <ContactListWrapper>
       <TransitionGroup component="ul" className="list">
@@ -14,7 +14,7 @@ const ContactList = ({ contacts, filter, onBtnClick }) => {
           .filter(item => item.name.toLowerCase().includes(filter.toLowerCase()))
           .map(item => (
             <CSSTransition key={item.id} timeout={250} classNames="my-list-item">
-              <ContactListItem item={item} onBtnClick={onBtnClick} />
+              <ContactListItem item={item} />
             </CSSTransition>
           ))}
       </TransitionGroup>
@@ -41,5 +41,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
 ContactListItem.propTypes = {
   contacts: PropTypes.array,
   filter: PropTypes.string,
-  onBtnClick: PropTypes.func.isRequired,
 };
