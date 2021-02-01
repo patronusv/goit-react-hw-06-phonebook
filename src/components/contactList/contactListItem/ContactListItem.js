@@ -1,13 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteContact } from '../../../redux/actions/phonebookActions';
+import { deleteContact, setFilter } from '../../../redux/actions/phonebookActions';
 import ContactLi from './ContactListItemStyled';
-const ContactListItem = ({ item, deleteContact }) => {
+const ContactListItem = ({ item, contacts, filter, deleteContact, setFilter }) => {
   const onHandleDelete = e => {
     const id = e.target.dataset.id;
 
     deleteContact(id);
+    console.log('filter', filter);
+
+    if (contacts.filter(item => item.name.toLowerCase().includes(filter.toLowerCase())).length < 2) {
+      console.log('need to clear filter');
+      setFilter('');
+    }
   };
   return (
     <ContactLi classname="contact-list-item" key={item.id}>
@@ -20,15 +26,25 @@ const ContactListItem = ({ item, deleteContact }) => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    contacts: state.phonebook.contacts.filter(item => item.name.toLowerCase().includes(state.phonebook.filter.toLowerCase())),
+
+    filter: state.phonebook.filter,
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
     deleteContact: id => {
       dispatch(deleteContact(id));
     },
+    setFilter: value => {
+      dispatch(setFilter(value));
+    },
   };
 };
 
-export default connect(null, mapDispatchToProps)(ContactListItem);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactListItem);
 ContactListItem.propTypes = {
   item: PropTypes.object.isRequired,
   onBtnClick: PropTypes.func.isRequired,

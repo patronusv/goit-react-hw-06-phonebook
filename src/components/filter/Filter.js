@@ -22,7 +22,7 @@ const Filter = ({ setFilter, filter }) => {
 
 const mapStateToProps = state => {
   return {
-    filter: state.filter,
+    filter: state.phonebook.filter,
   };
 };
 const mapDispatchToProps = dispatch => {
