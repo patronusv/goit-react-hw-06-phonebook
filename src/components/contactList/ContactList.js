@@ -10,7 +10,6 @@ const ContactList = ({ contacts, filter, getInitialContacts }) => {
   useEffect(() => {
     const contacts = localStorage.getItem('contacts');
     if (contacts) {
-      console.log(contacts);
       getInitialContacts(JSON.parse(contacts));
     }
     // eslint-disable-next-line

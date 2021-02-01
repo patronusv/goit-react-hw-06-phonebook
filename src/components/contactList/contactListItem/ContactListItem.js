@@ -6,12 +6,9 @@ import ContactLi from './ContactListItemStyled';
 const ContactListItem = ({ item, contacts, filter, deleteContact, setFilter }) => {
   const onHandleDelete = e => {
     const id = e.target.dataset.id;
-
     deleteContact(id);
-    console.log('filter', filter);
 
     if (contacts.filter(item => item.name.toLowerCase().includes(filter.toLowerCase())).length < 2) {
-      console.log('need to clear filter');
       setFilter('');
     }
   };

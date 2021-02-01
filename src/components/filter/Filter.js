@@ -5,9 +5,7 @@ import { setFilter } from '../../redux/actions/phonebookActions';
 import FilterWrapper from './FilterStyled';
 const Filter = ({ setFilter, filter }) => {
   const onHandleChange = e => {
-    console.log(e.target);
     const { value } = e.target;
-    console.log(value);
     setFilter(value);
   };
   return (
